@@ -21,15 +21,13 @@ public class LoginSteps extends CommonMethods {
     @When("user enters valid username and password")
     public void user_enters_valid_username_and_password() throws IOException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        sendText(ConfigReader.read("userName"),
-                driver.findElement(By.xpath(Constants.SYNTAX_USERNAME_PATH)));
-        sendText(ConfigReader.read("password"),
-                driver.findElement(By.xpath(Constants.SYNTAX_PASSWORD_PATH)));
+        loginPage.userNameTxtField.sendKeys(ConfigReader.read("userName"));
+        loginPage.passwordTxtField.sendKeys(ConfigReader.read("password"));
     }
 
     @When("user clicks on login button")
     public void user_clicks_on_login_button() {
-        clickTheElement(driver.findElement(By.cssSelector("input#btnLogin")));
+        loginPage.loginButton.click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
     }

@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.IOException;
 import java.time.Duration;
 
-public class CommonMethods {
+public class CommonMethods extends PageInitializer {
     public static WebDriver driver;
 
     public static void openBrowserAndLaunchApplication() throws IOException {
@@ -39,6 +39,9 @@ public class CommonMethods {
 
         driver.manage().window().maximize();
         driver.get(ConfigReader.read("url"));
+
+        // initialize all the objects for page
+        initializePageObjects();
     }
 
     public static WebDriver openBrowserAndLaunchApplication(String url) {
@@ -95,26 +98,6 @@ public class CommonMethods {
     public static void clickTheElement(WebElement element) {
         waitForElementToBeClicked(element);
         element.click();
-    }
-
-    public static void syntaxLogin() throws IOException {
-        sendText(ConfigReader.read("userName"),
-                driver.findElement(By.xpath(Constants.SYNTAX_USERNAME_PATH)));
-        sendText(ConfigReader.read("password"),
-                driver.findElement(By.xpath(Constants.SYNTAX_PASSWORD_PATH)));
-        clickTheElement(driver.findElement(By.xpath(Constants.LOGIN_BUTTON_PATH)));
-    }
-
-    public static void syntaxLogin(String userName, String password) {
-        sendText(userName, driver.findElement(By.xpath(Constants.SYNTAX_USERNAME_PATH)));
-        sendText(password, driver.findElement(By.xpath(Constants.SYNTAX_PASSWORD_PATH)));
-        clickTheElement(driver.findElement(By.xpath(Constants.LOGIN_BUTTON_PATH)));
-    }
-
-    public static void syntaxLogin(String userName, String password, String userPath, String passPath, String btnPath) {
-        sendText(userName, driver.findElement(By.xpath(userPath)));
-        sendText(password, driver.findElement(By.xpath(passPath)));
-        clickTheElement(driver.findElement(By.xpath(btnPath)));
     }
 
     //take screenshot

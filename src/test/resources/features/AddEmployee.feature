@@ -30,3 +30,15 @@ Feature: Adding employees using different techniques
       | Fouad     | MS         | Oliinyk  |
       | Matt      | MS         | Aslloun  |
       | Lali      | MS         | Shahad   |
+
+  @datatable
+  Scenario: Adding multiple employee using data table
+    When user enters firstname, middlename and lastname from data table and verify it
+      | firstName | middleName | lastName   |
+      | shazzam   | MS         | alakazam   |
+      | mark      | MS         | weins      |
+      | princess  | MS         | cinderella |
+
+  @exceldata
+Scenario: Adding multiple employee using excel file
+    When user adds multiple employees from excel and validate them

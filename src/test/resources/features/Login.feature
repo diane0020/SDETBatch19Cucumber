@@ -6,3 +6,9 @@ Feature: Login related scenarios
     When user enters valid username and password
     And user clicks on login button
     Then user successfully logged in
+
+    @loginWithFeature
+    Scenario: Valid admin login using feature file
+      When user enter "admin" and "Hum@nhrm123"
+      And user clicks on login button
+      Then user successfully logged in

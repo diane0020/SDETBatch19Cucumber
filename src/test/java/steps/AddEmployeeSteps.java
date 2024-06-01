@@ -7,6 +7,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.AddEmployeePage;
 import utils.CommonMethods;
+import utils.ExcelReader;
+
+import java.util.List;
+import java.util.Map;
 
 public class AddEmployeeSteps extends CommonMethods {
     @And("user clicks on Add Employee option")
@@ -64,5 +68,56 @@ public class AddEmployeeSteps extends CommonMethods {
         sendText(fn, addEmployeePage.firstNameLoc);
         sendText(mn, addEmployeePage.middleNameLoc);
         sendText(ln, addEmployeePage.lastNameLoc);
+    }
+
+    @When("user enters firstname, middlename and lastname from data table and verify it")
+    public void user_enters_firstname_middlename_and_lastname_from_data_table_and_verify_it(io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> newEmployee = dataTable.asMaps();
+
+        for (Map<String, String> employee:newEmployee) {
+            String firstNameValue = employee.get("firstName");
+            String middleNameValue = employee.get("middleName");
+            String lastNameValue = employee.get("lastName");
+
+            sendText(firstNameValue, addEmployeePage.firstNameLoc);
+            sendText(middleNameValue, addEmployeePage.middleNameLoc);
+            sendText(lastNameValue, addEmployeePage.lastNameLoc);
+
+            clickTheElement(addEmployeePage.saveButton);
+
+            // to add multiple employee, I have to click on add employee
+            clickTheElement(dashboardPage.addEmployee);
+        }
+    }
+
+    @When("user adds multiple employees from excel and validate them")
+    public void user_adds_multiple_employees_from_excel_and_validate_them() {
+        List<Map<String, String>> employeeData = ExcelReader.readExcel();
+//        try {
+//            Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        for (Map<String, String> employee : employeeData) {
+            sendText(employee.get("firstName"), addEmployeePage.firstNameLoc);
+            sendText(employee.get("middleName"), addEmployeePage.middleNameLoc);
+            sendText(employee.get("lastName"), addEmployeePage.lastNameLoc);
+            sendText(employee.get("Photograph"), addEmployeePage.photograph);
+
+            // click the check if not selected
+            if (!addEmployeePage.checkBox.isSelected()){
+                clickTheElement(addEmployeePage.checkBox);
+            }
+
+            sendText(employee.get("userName"), addEmployeePage.username);
+            sendText(employee.get("password"), addEmployeePage.passwordUser);
+            sendText(employee.get("confirmPassword"), addEmployeePage.confirmPasswordUser);
+
+            clickTheElement(addEmployeePage.saveButton);
+
+            // verification is pending. homework
+
+            clickTheElement(dashboardPage.addEmployee);
+        }
     }
 }

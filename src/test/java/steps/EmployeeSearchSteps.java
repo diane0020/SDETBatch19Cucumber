@@ -3,16 +3,16 @@ package steps;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import utils.CommonMethods;
-import utils.Constants;
 
 public class EmployeeSearchSteps extends CommonMethods {
     @When("user clicks on PIM option")
     public void userClicksOnPIMOption() {
         //WebElement pimOption = driver.findElement(By.id("menu_pim_viewPimModule"));
         clickTheElement(dashboardPage.pimOption);
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(dashboardPage.pimOption);
     }
 
     @And("user clicks on employee list option")

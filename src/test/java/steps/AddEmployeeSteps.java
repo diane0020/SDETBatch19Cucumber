@@ -3,6 +3,7 @@ package steps;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.AddEmployeePage;
@@ -116,6 +117,10 @@ public class AddEmployeeSteps extends CommonMethods {
             clickTheElement(addEmployeePage.saveButton);
 
             // verification is pending. homework
+            String expectedURL ="http://hrm.syntaxtechs.net/humanresources/symfony/web/index" +
+                    ".php/pim/viewPersonalDetails/empNumber/99074";
+            String actualURL = driver.getCurrentUrl();
+            Assert.assertEquals(expectedURL, actualURL);
 
             clickTheElement(dashboardPage.addEmployee);
         }

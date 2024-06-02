@@ -1,17 +1,20 @@
 package utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.DashboardPage;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 
 public class CommonMethods extends PageInitializer {
     public static WebDriver driver;
@@ -101,6 +104,35 @@ public class CommonMethods extends PageInitializer {
     }
 
     //take screenshot
+    public static byte[] takeScreenshot(String fileName) {
+
+        TakesScreenshot screenshot =(TakesScreenshot) driver;
+        byte[] arrayOfPicture = screenshot.getScreenshotAs(OutputType.BYTES);
+        File sourceFile = screenshot.getScreenshotAs(OutputType.FILE);
+
+        try {
+            FileUtils.copyFile(sourceFile, new File(Constants.SCREENSHOT_FILE_PATH + fileName + " " + getTimeStamp(
+                    "dd-MMM-yyyy-HH-mm-ss") + ".png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return arrayOfPicture;
+    }
+
+    public static String getTimeStamp(String datePattern) {
+
+        Date date = new Date();
+
+        // date format: yyyy-MM-dd-hh-mm-ss
+        // to get the date in my acceptable format, i need to format it
+        SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
+
+        return sdf.format(date);
+    }
+
+
+
     //checkboxes
     //radiobutton
     //jsclick

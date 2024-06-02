@@ -21,13 +21,13 @@ import org.junit.runner.RunWith;
         //to start the actual execution after implementing the missing step
         //set the value of dry run to false
         dryRun = false,
-        tags = "@login",
+        tags = "@regression",
 
         // it prints all the steps in the console which we executed
         // to generate the report, I need to mention the type of report and location
-        plugin = {"pretty", "html:target/cucumber.html", "json:target/cucumber.json", "rerun:target/failed.txt"}
+        plugin = {"pretty", "html:target/cucumber.html", "json:target/cucumber.json"}
 
 )
 
-public class RunnerClass {
+public class RegressionClass {
 }

@@ -36,11 +36,11 @@ public class LoginSteps extends CommonMethods {
     @Then("user successfully logged in")
     public void user_successfully_logged_in() {
         //here we are checking if the element exist or not
-        Assert.assertTrue(dashboardPage.welcomeMessage.isDisplayed());
+        //Assert.assertTrue(dashboardPage.welcomeMessage.isDisplayed());
 
         String expectedUrl = "http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/dashboard";
         String actualUrl = driver.getCurrentUrl();
-        //Assert.assertEquals(expectedUrl,actualUrl);
+        Assert.assertEquals(expectedUrl,actualUrl);
     }
 
 }

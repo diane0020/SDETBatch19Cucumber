@@ -8,7 +8,7 @@ Feature: Adding employees using different techniques
     When user clicks on PIM option
     And user clicks on Add Employee option
 
-  @addemployee
+  @addemployee @failed
   Scenario: Adding an employee in HRMS system
     When user enters firstname, middlename and lastname
     And user enters clicks the save button

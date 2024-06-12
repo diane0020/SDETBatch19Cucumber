@@ -28,7 +28,8 @@ public class LoginSteps extends CommonMethods {
 
     @When("user clicks on login button")
     public void user_clicks_on_login_button() {
-        loginPage.loginButton.click();
+        //loginPage.loginButton.click();
+        jsClick(loginPage.loginButton);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
     }
@@ -42,5 +43,6 @@ public class LoginSteps extends CommonMethods {
         String actualUrl = driver.getCurrentUrl();
         Assert.assertEquals(expectedUrl,actualUrl);
     }
+
 
 }

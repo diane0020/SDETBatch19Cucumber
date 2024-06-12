@@ -131,11 +131,14 @@ public class CommonMethods extends PageInitializer {
         return sdf.format(date);
     }
 
+    public static JavascriptExecutor getJSExecutor() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return js;
+    }
 
-
-    //checkboxes
-    //radiobutton
-    //jsclick
+    public static void jsClick (WebElement element) {
+        getJSExecutor().executeScript("arguments[0].click();", element);
+    }
 }
 
 

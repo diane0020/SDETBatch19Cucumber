@@ -4,16 +4,21 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import pages.AddEmployeePage;
 import utils.CommonMethods;
+import utils.DBUtils;
 import utils.ExcelReader;
+import utils.Log;
 
 import java.util.List;
 import java.util.Map;
 
 public class AddEmployeeSteps extends CommonMethods {
+
+    private String expectedFN;
+    private String expectedMN;
+    private String expectedLN;
+    private String employeeIdFE;
     @And("user clicks on Add Employee option")
     public void userClicksOnAddEmployeeOption() {
         //WebElement addEmpOption = driver.findElement(By.id("menu_pim_addEmployee"));
@@ -41,10 +46,6 @@ public class AddEmployeeSteps extends CommonMethods {
         clickTheElement(addEmployeePage.saveButton);
     }
 
-    @Then("employee added successfully")
-    public void employeeAddedSuccessfully() {
-        System.out.println("Employee Added");
-    }
 
     @When("user enters {string}, {string} and {string}")
     public void userEntersAnd(String firstName, String middleName, String lastName) {
@@ -53,9 +54,35 @@ public class AddEmployeeSteps extends CommonMethods {
 //        WebElement lastNameLoc = driver.findElement(By.id("lastName"));
 
         //AddEmployeePage addEmployeePage = new AddEmployeePage();
+
         sendText(firstName, addEmployeePage.firstNameLoc);
         sendText(middleName, addEmployeePage.middleNameLoc);
         sendText(lastName, addEmployeePage.lastNameLoc);
+
+        // copying the data from local variable into instance variables so that we can access it in other method.
+        expectedFN = firstName;
+        expectedMN = middleName;
+        expectedLN = lastName;
+        employeeIdFE = addEmployeePage.employeeId.getAttribute("value");
+        Log.info("Setting the expected data");
+
+    }
+
+    @Then("employee added successfully")
+    public void employeeAddedSuccessfully() {
+
+        String query = "select emp_firstname, emp_middle_name, emp_lastname from hs_hr_employees where employee_id = " +
+                "'"+employeeIdFE+"' ";
+        List<Map<String, String>> data = DBUtils.fetch(query);
+        Map<String, String> actualDataMap = data.getFirst();
+
+        String actualFN = actualDataMap.get("emp_firstname");
+        String actualMN = actualDataMap.get("emp_middle_name");
+        String actualLN = actualDataMap.get("emp_lastname");
+
+            Assert.assertEquals(expectedFN, actualFN);
+            Assert.assertEquals(expectedMN, actualMN);
+            Assert.assertEquals(expectedLN, actualLN);
     }
 
 

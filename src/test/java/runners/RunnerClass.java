@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
         //to start the actual execution after implementing the missing step
         //set the value of dry run to false
         dryRun = false,
-        tags = "@loginWithFeature",
+        tags = "@dbTesting",
 
         // it prints all the steps in the console which we executed
         // to generate the report, I need to mention the type of report and location

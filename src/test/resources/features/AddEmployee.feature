@@ -14,7 +14,7 @@ Feature: Adding employees using different techniques
     And user enters clicks the save button
     Then employee added successfully
 
-  @employeeFrmFile
+  @employeeFrmFile @dbTesting
   Scenario: Adding employee from feature file
     When user enters "Shiela", "MS" and "Bangal"
     And user enters clicks the save button
